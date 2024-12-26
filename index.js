@@ -1,5 +1,5 @@
 function getComputerChoice() {
-    choice = Math.floor(Math.random() * 3);
+    let choice = Math.floor(Math.random() * 3);
     
     if (choice == 0) {
         return "rock";
@@ -9,19 +9,15 @@ function getComputerChoice() {
         return "scissors";
     }
 }
-// console.log(getComputerChoice())
 
 function getHumanChoice() {
     let choice = prompt("Rock, Paper or Scissors?").toLowerCase();
     return choice;
 }
-// console.log(getHumanChoice())
-
-let humanScore = 0;
-let computerScore = 0;
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
+        drawCount += 1
         console.log(`Draw! Both chose ${humanChoice}!`)
     } else if (humanChoice === "rock") {
         if (computerChoice === "scissors") {
@@ -50,7 +46,26 @@ function playRound(humanChoice, computerChoice) {
     }  
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+let humanScore = 0;
+let computerScore = 0;
+let drawCount = 0;
 
-playRound(humanSelection, computerSelection)
+function playGame() {
+    while ((humanScore + computerScore + drawCount) < 5) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection)
+    }
+
+    if (humanScore > computerScore) {
+        console.log("You Win!")
+    } else if (humanScore < computerScore) {
+        console.log("Computer Wins!")
+    } else {
+        console.log("Tie Game!")
+    }
+
+    console.log(`Final Scores:\nPlayer: ${humanScore}, Computer: ${computerScore}, Draw: ${drawCount}`)
+}
+
+playGame()
